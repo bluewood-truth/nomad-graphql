@@ -56,16 +56,16 @@ Nomad Coders의 강좌 [GraphQL로 영화 API 만들기](https://nomadcoders.co/
 
 #### GraphQL Types
 
-- 모든 GraphQL API는 Query type이 필수적이다.
+- 모든 GraphQL API는 **Query type**이 필수적이다.
   - Query 타입 안에 사용자가 요청할 수 있는 모든 리소스를 정의함
   - REST API로 따지면 새로운 GET 엔드포인트를 만드는 것과 같음
-- GraphQL은 객체 타입(Object type)을 자유롭게 정의할 수 있다.
+- GraphQL은 **Object type**을 자유롭게 정의할 수 있다.
   - 객체 타입은 이름과 필드를 가짐
-- 각 필드의 타입은 어느 시점에서 특정한 데이터로 해석되어야 하는데, 이때 스칼라 타입(Scalar type)을 사용한다.
+- 각 필드의 타입은 어느 시점에서 특정한 데이터로 해석되어야 하는데, 이때 **Scalar type**을 사용한다.
   - GraphQL은 기본적인 스칼라 타입을 제공함
     - Int, Float, String, Boolean, ID
   - 혹은 scalar 키워드로 직접 스칼라 타입을 정의할 수 있음
-- 데이터를 변경하는 요청을 받기 위해서는 Mutation 타입을 정의한다.
+- 데이터를 변경하는 요청을 받기 위해서는 **Mutation type**을 정의한다.
   - mutation이란 데이터를 변경(추가, 수정, 삭제)하는 것을 말함
   - REST API로 따지면 POST, PUT, DELETE 엔드포인트를 만드는 것
 - 모든 타입은 기본적으로 Nullable이며, null값이 못 오게 하려면 `!`를 붙인다.
