@@ -70,3 +70,12 @@ Nomad Coders의 강좌 [GraphQL로 영화 API 만들기](https://nomadcoders.co/
   - REST API로 따지면 POST, PUT, DELETE 엔드포인트를 만드는 것
 - 모든 타입은 기본적으로 Nullable이며, null값이 못 오게 하려면 `!`를 붙인다.
 
+#### Resolvers
+
+- SDL로 타입을 정의했다면 이번엔 쿼리에 따라 로직을 처리할 resolver를 정의해야 한다.
+- 정의한 타입의 각 필드에 대응하는 resolver를 만들 수 있다.
+  - 타입 정의와 resolver의 리턴값이 일치하지 않으면 에러가 발생하니 주의해야 함
+- 항상 resolver의 첫 번째 인수는 root, 두 번째 인수는 요청의 arguments이다.
+- Query type이나 Mutation type의 필드에 대한 resolver는 해당 쿼리로 요청했을 때의 응답을 처리하는 역할을 한다.
+- 실제 데이터는 없지만 타입 정의에 정의한 필드에 대해서 resolver를 만들어 마치 실제 데이터가 있는 것처럼 값을 리턴할 수 있다. 이를 dynamic field이라고 한다.
+  - 이때 root 인수는 해당 resolver를 호출한 Object를 가리킴
