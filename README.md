@@ -79,3 +79,6 @@ Nomad Coders의 강좌 [GraphQL로 영화 API 만들기](https://nomadcoders.co/
 - Query type이나 Mutation type의 필드에 대한 resolver는 해당 쿼리로 요청했을 때의 응답을 처리하는 역할을 한다.
 - 실제 데이터는 없지만 타입 정의에 정의한 필드에 대해서 resolver를 만들어 마치 실제 데이터가 있는 것처럼 값을 리턴할 수 있다. 이를 dynamic field이라고 한다.
   - 이때 root 인수는 해당 resolver를 호출한 Object를 가리킴
+
+- 위 내용을 응용해서 서로 다른 resource간의 relationship을 추가해주는 것도 가능하다.
+

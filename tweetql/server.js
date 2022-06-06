@@ -3,15 +3,18 @@ import {ApolloServer, gql} from 'apollo-server';
 let tweets = [
   {
     id: '1',
-    text: 'hello',
+    text: 'first tweet!!',
+    userId: '1',
   },
   {
     id: '2',
-    text: 'hello',
+    text: 'Go To Mars',
+    userId: '2',
   },
   {
     id: '3',
     text: 'hello',
+    userId: '1',
   },
 ];
 
@@ -21,6 +24,11 @@ let users = [
     firstName: 'Hanseul',
     lastName: 'Kim',
   },
+  {
+    id: '2',
+    firstName: 'Elon',
+    lastName: 'Musk',
+  },
 ];
 
 const typeDefs = gql`
@@ -28,13 +36,18 @@ const typeDefs = gql`
     id: ID!
     firstName: String!
     lastName: String!
+    """
+    Is the sum of firstName and lastName as a string
+    """
     fullName: String!
   }
-
+  """
+  Tweet object represents a resource for a Tweet
+  """
   type Tweet {
     id: ID!
     text: String!
-    author: User
+    author: User!
   }
 
   type Query {
@@ -45,6 +58,9 @@ const typeDefs = gql`
 
   type Mutation {
     postTweet(text: String!, userId: ID!): Tweet! # POST /api/v1/tweets
+    """
+    Deletes a Tweet if found, else returns false
+    """
     deleteTweet(id: ID!): Boolean! # DELETE /api/v1/tweets/:id
   }
 `;
@@ -60,13 +76,17 @@ const resolvers = {
     },
     allUsers() {
       return users;
-    }
+    },
   },
   Mutation: {
-    postTweet(_, {text}) {
+    postTweet(_, {text, userId}) {
+      const user = users.find((user) => user.id === userId);
+      if (!user) throw new Error('Invalid user id');
+
       const newTweet = {
         id: tweets.length + 1,
         text,
+        userId,
       };
       tweets.push(newTweet);
       return newTweet;
@@ -81,8 +101,13 @@ const resolvers = {
   User: {
     fullName({firstName, lastName}) {
       return `${firstName} ${lastName}`;
-    }
-  }
+    },
+  },
+  Tweet: {
+    author({userId}) {
+      return users.find((user) => user.id === userId);
+    },
+  },
 };
 
 const server = new ApolloServer({typeDefs, resolvers});
